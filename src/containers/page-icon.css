@@ -1,0 +1,28 @@
+@import url(../index.css);
+
+.icon-element {
+     display: flex;
+     flex-flow: column;
+     align-items: center;
+     margin-top: 2vh;
+}
+
+.icon-element-active {
+     width: 100%;
+     background-color: rgba(11, 90, 36, 0.566);
+     color: white;
+     font-weight: bolder;
+     border-radius: 10px;
+}
+
+p {
+     cursor: pointer;
+}
+
+.page-name-text {
+     cursor: pointer;
+}
+
+.page-name-text:active {
+     font-size: 120%
+}

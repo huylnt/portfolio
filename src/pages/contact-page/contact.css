@@ -1,0 +1,23 @@
+.contact-element-container {
+   display: flex;
+   flex-flow: row wrap;
+   justify-content: space-between;
+   align-items: center;
+   width: 80%;
+   
+   box-sizing: border-box;
+}
+.time {
+   font-weight: bolder;
+   font-size: 120%;
+}
+
+a {
+   text-decoration: none;
+   color: green;
+   font-size: calc(12px + 0.5vw);
+}
+
+.fa {
+   font-size: calc(12px + 0.5vw);
+}
