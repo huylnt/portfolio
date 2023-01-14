@@ -1,0 +1,38 @@
+.btn {
+     width: max-content;
+     height: fit-content;
+     padding: 5px 12px;
+
+     border-radius: 10px;
+
+     color: white;
+     font-weight: bolder;
+
+     filter: brightness(60%);
+}
+
+.submit {
+     background: rgba(35, 129, 62, 0.696);
+}
+
+.edit {
+     background-color: rgb(135, 75, 25);
+}
+
+.delete {
+     background-color: rgb(117, 34, 34);
+}
+
+.cancel {
+     background-color: rgb(156, 156, 48);
+}
+
+
+.active {
+     filter: brightness(100%);
+}
+
+.active:hover {
+     cursor: pointer;
+     filter: brightness(120%);
+}

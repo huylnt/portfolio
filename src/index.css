@@ -1,16 +1,22 @@
-@import url('https://fonts.googleapis.com/css2?family=Raleway&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cantarell&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Oleo+Script&display=swap');
+
 :root {
-  --theme-color: #23a63e;
-  --theme-background: #329947;
+  --theme-text: #3d874f;
+  --theme-background: rgba(11, 90, 36, 0.671);
 }
 
+* {
+  box-sizing: border-box;
+}
 body {
   margin: 0;
   padding: 0;
-  font-family: 'Raleway', sans-serif;
+  font-family: 'Tinos', serif;
   color: rgb(58, 49, 49);
   position: relative;
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: scroll;
   line-height: 2;
   box-sizing: border-box;
 }

@@ -1,0 +1,18 @@
+@import url(index.css);
+
+.spinner {
+     height: 40px;
+     width: 40px;
+     background-color: var(--theme-background);
+     border-radius: 50%;
+     border: 2px solid;
+     border-top-color: #fff;
+
+     animation: spinner 600ms ease infinite;
+}
+
+@keyframes spinner {
+     to {
+          transform: rotate(360deg);
+     }
+}

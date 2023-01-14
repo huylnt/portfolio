@@ -1,0 +1,86 @@
+$success: rgb(73, 174, 73);
+$caution: rgb(205, 216, 74);
+$danger: rgb(174, 73, 73);
+
+.box {
+     display: flex;
+     flex-flow: row nowrap;
+     justify-content: space-between;
+     align-items: center;
+     gap: 10px;
+
+     width: max-content;
+     height: fit-content;
+     padding: 5px 10px;
+     line-height: 0;
+     border-radius: 10px;
+     border: none;
+     border-left: 5px solid;
+
+     background: transparent;
+
+     position: relative;
+
+     animation: floatUp 1s ease-in-out forwards, changeOpacity 1s linear infinite;
+
+     .icon {
+          width: 20px;
+          height: 20px;
+     }
+}
+
+@keyframes floatUp {
+     from {
+          transform: translateY(50px)
+     }
+     to {
+          transform: translateY(0px)
+     }
+}
+
+@keyframes changeOpacity {
+     from {
+          filter: brightness(100%);
+     }
+     to {
+          filter: brightness(120%);
+     }
+}
+
+.success {
+     border-left-color: $success;
+}
+
+.caution {
+     border-left-color: $caution;
+}
+
+.danger {
+     border-left-color: $danger;
+}
+
+.success::before, .caution::before, .danger::before {
+     z-index: -1;
+     content: '';
+     position: absolute;
+     top: 0;
+     left: 0;
+     width: 100%;
+     height: 100%;
+
+     border-radius: 10px;
+     
+     opacity: 0.6;
+}
+
+.success::before {
+     background: $success;
+}
+
+.caution::before {
+     background: $caution;
+}
+
+.danger::before {
+     background: $danger;
+}
