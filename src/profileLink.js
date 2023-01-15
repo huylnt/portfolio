@@ -1,6 +1,6 @@
 const profileLink = {
      cv: 'https://www.canva.com/design/DAE6WPw8UjE/Vq1opQnJbtFZqhzkjOoO6g/view?website#2',
-     github: 'https://github.com/20127037/my-portfolio',
+     github: 'https://github.com/20127037/my-portfolio-client',
      facebook: 'https://www.facebook.com/profile.php?id=100057375273139',
      email: 'lnthuy29012002@gmail.com',
      phone: '+84774848931',

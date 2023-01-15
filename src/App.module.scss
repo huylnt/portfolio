@@ -58,7 +58,7 @@
 .bannerMobile {
      width: 100vw;
      height: 100px;
-     background: linear-gradient(to top, #8ae38a 100%,#094709 100%);
+     background: linear-gradient(to bottom, rgb(148, 237, 148) 0%, var(--theme-background) 100%);
 
      position: relative;
 
@@ -85,7 +85,7 @@
 }
 
 .pageMobile {
-     height: 60vh;
+     height: 450px;
      margin-top: 0px;
      padding: 0px 20px;
      overflow-y: scroll;

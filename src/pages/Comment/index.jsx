@@ -21,7 +21,7 @@ const Comment = ({ visitor }) => {
 
    useEffect(() => {
       let _id;
-      fetch(`${process.env.REACT_APP_MY_SERVER}/welcome`, {
+      fetch(process.env.REACT_APP_MY_SERVER.concat('/welcome'), {
          method: "POST",
          headers: { "Content-type": "application/json; charset=UTF-8" },
          body: JSON.stringify({
@@ -30,31 +30,31 @@ const Comment = ({ visitor }) => {
       })
 
 
-      fetch(`${process.env.REACT_APP_MY_SERVER}/comment/${visitor['ip_address']}`)
+      fetch(process.env.REACT_APP_MY_SERVER.concat('/comment/').concat(visitor['ip_address']))
+      .then(res => res.json())
+      .then(obj => {
+          setPersonalComment(obj.msg)
+         if (obj.msg !== null) {
+            setHadPosted(true)
+            _id = obj.msg['_id']
+         }
+      })
+      .then(() => {
+         fetch(process.env.REACT_APP_MY_SERVER.concat('/comment'))
          .then(res => res.json())
          .then(obj => {
-            setPersonalComment(obj.msg)
-            if (obj.msg !== null) {
-               setHadPosted(true)
-               _id = obj.msg['_id']
-            }
-         })
-         .then(() => {
-            fetch(`${process.env.REACT_APP_MY_SERVER}/comment`)
-               .then(res => res.json())
-               .then(obj => {
-                  if (obj.msg.length > 0) setCommentHistory(obj.msg.filter(e => e['_id'] != _id))
-                  setCommentHistory([...commentHistory, {
-                     author: 'Virtual assistant',
-                     content: 'There is nothing else here.'
-                  }])
-                  setIsWaiting(false)
-               })
-         })
-         .catch(() => {
+            if (obj.msg.length > 0) setCommentHistory(obj.msg.filter(e => e['_id'] != _id))
+            setCommentHistory([...commentHistory, {
+               author: 'Virtual assistant',
+               content: 'There is nothing else here.'
+            }])
             setIsWaiting(false)
-            handleDialog('danger', 'Oh sorry, the server may be offline currently.')
          })
+      })
+      .catch(() => {
+         setIsWaiting(false)
+         handleDialog('danger', 'Oh sorry, the server may be offline currently.')
+      })
 
    }, [reload])
 
@@ -74,14 +74,17 @@ const Comment = ({ visitor }) => {
    const handleSubmit = () => {
       const author = document.getElementById(styles.author).value;
       const content = document.getElementById(styles.content).value;
-
+      console.log(author, content)
       if (!author || !content) handleDialog('caution', 'Oh, you have missed filling out the require information field.')
 
       else if (author.length > 30) handleDialog('caution', 'Oh, your name is too long. May you reduce it a little bit more?')
 
       else if (content.length > 100) handleDialog('caution', 'Oh, your comment is so valuable but I think it needs to be shorter to be more concise.')
 
-      else if (author === personalComment.author && content === personalComment.content) handleDialog('caution', 'Oh, you have not changed anything.')
+      else if (hadPosted) {
+         if (author === personalComment.author && content === personalComment.content)
+            handleDialog('caution', 'Oh, you have not changed anything.')
+      } 
       
       else {
 
@@ -144,7 +147,7 @@ const Comment = ({ visitor }) => {
    }
 
    const handleDelete = () => {
-      fetch(`${process.env.REACT_APP_MY_SERVER}/comment`, {
+      fetch(process.env.REACT_APP_MY_SERVER.concat('/comment'), {
          method: "DELETE",
          headers: { "Content-type": "application/json; charset=UTF-8" },
          body: JSON.stringify({
@@ -177,14 +180,14 @@ const Comment = ({ visitor }) => {
 
          <label style={{ position: 'relative' }}>
             {!hadPosted && <input id={styles.author} type='text' placeholder="Type your name here" />}
-            {hadPosted && !isEditing && <input id={styles.author} type='text' placeholder={personalComment.author} />}
+            {hadPosted && !isEditing && <input id={styles.author} type='text' placeholder={personalComment.author} disabled/>}
             {isEditing && <input id={styles.author} type='text' defaultValue={personalComment.author} />}
             <HiOutlineUser className={styles.icon} />
          </label>
 
 
          {!hadPosted && <textarea id={styles.content} placeholder='Write your comment here'></textarea>}
-         {hadPosted && !isEditing && <textarea id={styles.content} placeholder={personalComment.content}></textarea>}
+         {hadPosted && !isEditing && <textarea id={styles.content} placeholder={personalComment.content} disabled></textarea>}
          {isEditing && <textarea id={styles.content} defaultValue = {personalComment.content}></textarea>}
 
 
