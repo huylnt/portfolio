@@ -61,7 +61,7 @@ const App = () => {
           <p> It may not be your <span>exact location</span>, but your browser tells me this.</p>
         </div>}
 
-        <LoadingButton layoutHeight='800px' />
+        <LoadingButton layoutHeight='60vw' />
       </>
     )
   }
