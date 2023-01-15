@@ -19,8 +19,9 @@
 }
 
 .linkList {
+     margin-top: 50px;
      display: flex;
-     flex-flow: row;
+     flex-flow: row nowrap;
      justify-content: center;
      align-items: center;
      gap: 3vw;
