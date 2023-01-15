@@ -50,5 +50,28 @@
 
 .activeMobile {
      font-weight: bold;
-     border-bottom: 3px solid var(--theme-background);
+     width: max-content;
+     position: relative
+}
+
+.activeMobile::after {
+     content: '';
+     position: absolute;
+     bottom: 0;
+     left: 0;
+     height: 3px;
+
+     background-color: var(--theme-background);
+     animation: slideRight .5s ease-in-out forwards;
+}
+
+@keyframes slideRight {
+     from {
+          opacity: 0.5;
+          width: 0;
+     }
+     to {
+          opacity: 1;
+          width: 100%;
+     }
 }

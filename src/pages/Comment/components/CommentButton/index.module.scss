@@ -1,8 +1,14 @@
 .btn {
+     display: flex;
+     flex-flow: row nowrap;
+     justify-content: space-between;
+     align-items: center;
+     gap: 10px;
+     
      width: max-content;
      height: fit-content;
-     padding: 5px 12px;
-
+     padding: 5px 15px;
+     margin: 10px 0;
      border-radius: 10px;
 
      color: white;

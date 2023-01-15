@@ -10,9 +10,9 @@ $danger: rgb(174, 73, 73);
      gap: 10px;
 
      width: max-content;
-     height: fit-content;
+     height: max-content;
      padding: 5px 10px;
-     line-height: 0;
+     line-height: 1;
      border-radius: 10px;
      border: none;
      border-left: 5px solid;
@@ -24,8 +24,8 @@ $danger: rgb(174, 73, 73);
      animation: floatUp 1s ease-in-out forwards, changeOpacity 1s linear infinite;
 
      .icon {
-          width: 20px;
-          height: 20px;
+          width: 30px;
+          height: 30px;
      }
 }
 

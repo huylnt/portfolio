@@ -12,6 +12,7 @@ import styles from './index.module.scss'
 
 const Comment = ({ visitor }) => {
    const [isWaiting, setIsWaiting] = useState(true)
+   const [isFetching, setIsFetching] = useState(false)
    const [commentHistory, setCommentHistory] = useState([])
    const [personalComment, setPersonalComment] = useState(null)
    const [hadPosted, setHadPosted] = useState(false)
@@ -64,6 +65,7 @@ const Comment = ({ visitor }) => {
       setCommentHistory(commentHistory.splice(0, commentHistory.length))
       setHadPosted(false)
       setIsEditing(false)
+      setIsFetching(false)
    }
 
    const handleDialog = (type, message) => {
@@ -74,12 +76,12 @@ const Comment = ({ visitor }) => {
    const handleSubmit = () => {
       const author = document.getElementById(styles.author).value;
       const content = document.getElementById(styles.content).value;
-      console.log(author, content)
+
       if (!author || !content) handleDialog('caution', 'Oh, you have missed filling out the require information field.')
-
-      else if (author.length > 30) handleDialog('caution', 'Oh, your name is too long. May you reduce it a little bit more?')
-
-      else if (content.length > 100) handleDialog('caution', 'Oh, your comment is so valuable but I think it needs to be shorter to be more concise.')
+      else if (author.length < 6) handleDialog('caution', 'Oh, your name is quite short. May you provide more details?')
+      else if (author.length > 30) handleDialog('caution', 'Oh, your name is quite long. May you shorten it so that we can remember it easier?')
+      else if (content.length < 10) handleDialog('caution', 'Oh, you comment is not specific enough. I am waiting for more of your feeling now.')
+      else if (content.length > 200) handleDialog('caution', 'Oh, your comment is valuable but quite long. Please help me summarize it.')
 
       else if (hadPosted) {
          if (author === personalComment.author && content === personalComment.content)
@@ -93,51 +95,53 @@ const Comment = ({ visitor }) => {
             headers: {
                "Authorization": "Bearer " + process.env.REACT_APP_LANGUAGE_DETECTION_KEY
             },
-         }).then(res => res.json()).then(res => {
+         })
+         .then(res => res.json()).then(res => {
             return {
                language: res.data.detections[0].language,
                confidence: res.data.detections[0].confidence
             }
          })
-            .then(({language, confidence}) => {
-               if (language !== 'en' || confidence < 12) handleDialog('caution', 'Oops, your comment is not English.')
-               else {
-                  if (!hadPosted) {
-                     fetch(`${process.env.REACT_APP_MY_SERVER}/comment`, {
-                        method: "POST",
-                        headers: { "Content-type": "application/json; charset=UTF-8" },
-                        body: JSON.stringify({
-                           visitor: visitor['ip_address'],
-                           author,
-                           content
-                        }),
-                     })
-                     .then(response => response.json())
-                     .then(obj => {
-                        handleDialog('success', 'Great, your comment has been posted.')
-                        setTimeout(handleReload, 2000)
-                     })
-                     .catch(err => handleDialog('danger', 'Oh sorry, the server may not be available currently.'))
-                  }
-                  else if (isEditing) {
-                     fetch(`${process.env.REACT_APP_MY_SERVER}/comment`, {
-                        method: "PUT",
-                        headers: { "Content-type": "application/json; charset=UTF-8" },
-                        body: JSON.stringify({
-                           visitor: visitor['ip_address'],
-                           author,
-                           content
-                        }),
-                     })
-                     .then(response => response.json())
-                     .then(obj => {
-                        handleDialog('success', 'Great, your comment has been modified.')
-                        setTimeout(handleReload, 2000)
-                     })
-                     .catch(err => handleDialog('danger', 'Oh sorry, the server may not be available currently.'))
-                  }
+         .then(({language, confidence}) => {
+            if (language !== 'en' || confidence < 12) handleDialog('caution', 'Oops, your comment is not English.')
+            else {
+               setIsFetching(true)
+               if (!hadPosted) {
+                  fetch(`${process.env.REACT_APP_MY_SERVER}/comment`, {
+                     method: "POST",
+                     headers: { "Content-type": "application/json; charset=UTF-8" },
+                     body: JSON.stringify({
+                        visitor: visitor['ip_address'],
+                        author,
+                        content
+                     }),
+                  })
+                  .then(response => response.json())
+                  .then(obj => {
+                     handleDialog('success', 'Great, your comment has been posted.')
+                     setTimeout(handleReload, 2000)
+                  })
+                  .catch(err => handleDialog('danger', 'Oh sorry, the server may not be available currently.'))
                }
-            })
+               else if (isEditing) {
+                  fetch(`${process.env.REACT_APP_MY_SERVER}/comment`, {
+                     method: "PUT",
+                     headers: { "Content-type": "application/json; charset=UTF-8" },
+                     body: JSON.stringify({
+                        visitor: visitor['ip_address'],
+                        author,
+                        content
+                     }),
+                  })
+                  .then(response => response.json())
+                  .then(obj => {
+                     handleDialog('success', 'Great, your comment has been modified.')
+                     setTimeout(handleReload, 2000)
+                  })
+                  .catch(err => handleDialog('danger', 'Oh sorry, the server may not be available currently.'))
+               }
+            }
+         })
       }
 
    }
@@ -147,6 +151,7 @@ const Comment = ({ visitor }) => {
    }
 
    const handleDelete = () => {
+      setIsFetching(true)
       fetch(process.env.REACT_APP_MY_SERVER.concat('/comment'), {
          method: "DELETE",
          headers: { "Content-type": "application/json; charset=UTF-8" },
@@ -154,12 +159,12 @@ const Comment = ({ visitor }) => {
             visitor: visitor['ip_address'],
          }),
       })
-         .then(response => response.json())
-         .then(obj => {
-            handleDialog('success', 'You have deleted your comment successfully.')
-            setTimeout(handleReload, 2000)
-         })
-         .catch(err => handleDialog('danger', 'Oh sorry, the server may not be available currently.'))
+      .then(response => response.json())
+      .then(obj => {
+         handleDialog('success', 'You have deleted your comment successfully.')
+         setTimeout(handleReload, 2000)
+      })
+      .catch(err => handleDialog('danger', 'Oh sorry, the server may not be available currently.'))
    }
 
    const handleCancel = () => {
@@ -171,7 +176,7 @@ const Comment = ({ visitor }) => {
 
       <p> Comment history </p>
       <div className={styles.commentArea}>
-         {isWaiting && <LoadingButton layoutHeight='100%' />}
+         {isWaiting && <LoadingButton layoutHeight='300px' height = '40px' />}
          {commentHistory.map((comment, index) => <CommentCard key = {index} {...comment} />)}
       </div>
 
@@ -193,20 +198,21 @@ const Comment = ({ visitor }) => {
 
          {!hadPosted && <div className={styles.btnArea}>
             {(Object.keys(dialog).length > 0) && <Dialog {...dialog} />}
-            <CommentButton type='submit' handleSubmit={handleSubmit} />
+            <CommentButton type='submit' handleSubmit={handleSubmit} isFetching = {isFetching} />
          </div>}
 
          {hadPosted && !isEditing && <div className={styles.btnArea}>
             {(Object.keys(dialog).length > 0) && <Dialog {...dialog} />}
-            <CommentButton type='delete' handleDelete={handleDelete} />
+            <CommentButton type='delete' handleDelete={handleDelete} isFetching = {isFetching} />
             <CommentButton type='edit' handleEdit={handleEdit} />
             <CommentButton type='submit' />
          </div>}
 
          {isEditing && <div className={styles.btnArea}>
             {(Object.keys(dialog).length > 0) && <Dialog {...dialog} />}
+            {isFetching && <LoadingButton layoutHeight = '100%' />}
             <CommentButton type='cancel' handleCancel={handleCancel} />
-            <CommentButton type='submit' handleSubmit={handleSubmit} />
+            <CommentButton type='submit' handleSubmit={handleSubmit} isFetching = {isFetching} />
          </div>}
 
       </div>

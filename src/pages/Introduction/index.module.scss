@@ -10,8 +10,8 @@
 .name {
      margin: 30px 0;
      font-weight: 600;
-     font-size: calc(16px + 1vw);
-     line-height: 0;
+     font-size: calc(18px + 1vw);
+     line-height: 1;
      color: var(--theme-text);
 }
 
@@ -20,7 +20,7 @@
 }
 
 .linkList {
-     margin-top: 50px;
+     margin-top: 70px;
      display: flex;
      flex-flow: row wrap;
      justify-content: center;

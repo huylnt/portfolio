@@ -1,6 +1,8 @@
 import React from 'react'
 import classNames from 'classnames/bind'
 
+import LoadingButton from 'components/LoadingButton'
+
 import styles from './index.module.scss'
 
 const CommentButton = (props) => {
@@ -18,7 +20,10 @@ const CommentButton = (props) => {
      let btn
      switch (type) {
           case 'submit':
-               if (props?.handleSubmit) btn = <div onClick={props.handleSubmit}> {displayedType} </div>
+               if (props?.handleSubmit) btn = <div onClick={props.handleSubmit}> 
+                    {props.isFetching && <LoadingButton layoutHeight = '0px' height = '30px' />}
+                    {displayedType} 
+               </div>
                else btn = <div> {displayedType} </div>
                break
           case 'edit':
@@ -26,7 +31,10 @@ const CommentButton = (props) => {
                else btn = <div> {displayedType} </div>
                break
           case 'delete':
-               if (props?.handleDelete) btn = <div onClick={props.handleDelete}> {displayedType} </div>
+               if (props?.handleDelete) btn = <div onClick={props.handleDelete}> 
+                    {props.isFetching && <LoadingButton layoutHeight = '0px' height = '30px' />}
+                    {displayedType} 
+               </div>
                else btn = <div> {displayedType} </div>
                break
           case 'cancel':
