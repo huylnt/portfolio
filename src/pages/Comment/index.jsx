@@ -104,6 +104,7 @@ const Comment = ({ visitor }) => {
          })
          .then(({language, confidence}) => {
             if (language !== 'en' || confidence < 8) {
+               setIsFetching(false)
                handleDialog('caution', 'Oops, your comment may not be English. Please be more accurate.', true)
             }
             else {
