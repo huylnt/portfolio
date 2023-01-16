@@ -103,9 +103,9 @@ const Comment = ({ visitor }) => {
             }
          })
          .then(({language, confidence}) => {
-            if (language !== 'en' || confidence < 12) {
+            if (language !== 'en' || confidence < 8) {
                setTimeout(handleReload, 2000)
-               handleDialog('caution', 'Oops, your comment is not English.')
+               handleDialog('caution', 'Oops, your comment may not be English. Please be more accurate.')
             }
             else {
                if (!hadPosted) {
