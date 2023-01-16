@@ -45,7 +45,7 @@ const App = () => {
     handleResize()
     window.addEventListener('resize', handleResize)
 
-    setTimeout(() => setIsWaiting(false), 3000)
+    setTimeout(() => setIsWaiting(false), 5000)
 
     fetch(process.env.REACT_APP_LOCATION.concat(process.env.REACT_APP_LOCATION_KEY))
     .then(res => res.json())

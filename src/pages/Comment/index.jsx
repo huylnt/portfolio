@@ -83,12 +83,7 @@ const Comment = ({ visitor }) => {
       else if (author.length > 30) handleDialog('caution', 'Oh, your name is quite long. May you shorten it so that we can remember it easier?', true)
       else if (content.length < 16) handleDialog('caution', 'Oh, you comment is not specific enough. I am waiting for more of your feeling now.', true)
       else if (content.length > 200) handleDialog('caution', 'Oh, your comment is valuable but quite long. Please help me summarize it.', true)
-
-      else if (hadPosted) {
-         if (author === personalComment.author && content === personalComment.content)
-            handleDialog('caution', 'Oh, you have not changed anything.', true)
-      } 
-      
+    
       else {
          setIsFetching(true)
          fetch(process.env.REACT_APP_LANGUAGE_DETECTION.concat(content), {
@@ -127,7 +122,12 @@ const Comment = ({ visitor }) => {
                   .catch(err => handleDialog('danger', 'Oh sorry, the server may not be available currently.', true))
                }
                else if (isEditing) {
-                  fetch(process.env.REACT_APP_MY_SERVER.concat('/comment'), {
+                  if (author === personalComment.author && content === personalComment.content) {
+                     setIsFetching(false)
+                     handleDialog('caution', 'Oh, you have not changed anything.', true)
+                  }
+                     
+                  else fetch(process.env.REACT_APP_MY_SERVER.concat('/comment'), {
                      method: "PUT",
                      headers: { "Content-type": "application/json; charset=UTF-8" },
                      body: JSON.stringify({
@@ -213,7 +213,6 @@ const Comment = ({ visitor }) => {
 
          {isEditing && <div className={styles.btnArea}>
             {(Object.keys(dialog).length > 0) && <Dialog {...dialog} />}
-            {isFetching && <LoadingButton layoutHeight = '100%' />}
             <CommentButton type='cancel' handleCancel={handleCancel} />
             <CommentButton type='submit' handleSubmit={handleSubmit} isFetching = {isFetching} />
          </div>}
