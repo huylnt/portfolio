@@ -21,7 +21,7 @@ const CommentButton = (props) => {
      switch (type) {
           case 'submit':
                if (props?.handleSubmit) btn = <div onClick={props.handleSubmit}> 
-                    {props.isFetching && <LoadingButton layoutHeight = '0px' height = '30px' />}
+                    {props.isFetching && <LoadingButton layoutHeight = '100%' height = '20px' />}
                     {displayedType} 
                </div>
                else btn = <div> {displayedType} </div>
@@ -32,7 +32,7 @@ const CommentButton = (props) => {
                break
           case 'delete':
                if (props?.handleDelete) btn = <div onClick={props.handleDelete}> 
-                    {props.isFetching && <LoadingButton layoutHeight = '0px' height = '30px' />}
+                    {props.isFetching && <LoadingButton layoutHeight = '100%' height = '20px' />}
                     {displayedType} 
                </div>
                else btn = <div> {displayedType} </div>

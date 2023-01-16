@@ -1,3 +1,4 @@
+import React from 'react'
 import classNames from 'classnames'
 import { RiErrorWarningLine } from 'react-icons/ri'
 import { MdOutlineCelebration, MdOutlineDangerous } from 'react-icons/md'
@@ -19,7 +20,7 @@ const Dialog = ({type, message}) => {
      }
 
      return <div className={classNames(styles.box, styles[type])}>
-          {icon}
+          {React.cloneElement(icon, {className: styles.icon})}
           <p>{message}</p>
      </div>
 }

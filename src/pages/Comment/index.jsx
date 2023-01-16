@@ -80,7 +80,7 @@ const Comment = ({ visitor }) => {
       if (!author || !content) handleDialog('caution', 'Oh, you have missed filling out the require information field.')
       else if (author.length < 6) handleDialog('caution', 'Oh, your name is quite short. May you provide more details?')
       else if (author.length > 30) handleDialog('caution', 'Oh, your name is quite long. May you shorten it so that we can remember it easier?')
-      else if (content.length < 10) handleDialog('caution', 'Oh, you comment is not specific enough. I am waiting for more of your feeling now.')
+      else if (content.length < 16) handleDialog('caution', 'Oh, you comment is not specific enough. I am waiting for more of your feeling now.')
       else if (content.length > 200) handleDialog('caution', 'Oh, your comment is valuable but quite long. Please help me summarize it.')
 
       else if (hadPosted) {
@@ -89,7 +89,7 @@ const Comment = ({ visitor }) => {
       } 
       
       else {
-
+         setIsFetching(true)
          fetch(process.env.REACT_APP_LANGUAGE_DETECTION.concat(content), {
             method: 'POST',
             headers: {
@@ -103,11 +103,13 @@ const Comment = ({ visitor }) => {
             }
          })
          .then(({language, confidence}) => {
-            if (language !== 'en' || confidence < 12) handleDialog('caution', 'Oops, your comment is not English.')
+            if (language !== 'en' || confidence < 12) {
+               setTimeout(handleReload, 2000)
+               handleDialog('caution', 'Oops, your comment is not English.')
+            }
             else {
-               setIsFetching(true)
                if (!hadPosted) {
-                  fetch(`${process.env.REACT_APP_MY_SERVER}/comment`, {
+                  fetch(process.env.REACT_APP_MY_SERVER.concat('/comment'), {
                      method: "POST",
                      headers: { "Content-type": "application/json; charset=UTF-8" },
                      body: JSON.stringify({
@@ -118,13 +120,13 @@ const Comment = ({ visitor }) => {
                   })
                   .then(response => response.json())
                   .then(obj => {
-                     handleDialog('success', 'Great, your comment has been posted.')
                      setTimeout(handleReload, 2000)
+                     handleDialog('success', 'Great, your comment has been posted.')
                   })
                   .catch(err => handleDialog('danger', 'Oh sorry, the server may not be available currently.'))
                }
                else if (isEditing) {
-                  fetch(`${process.env.REACT_APP_MY_SERVER}/comment`, {
+                  fetch(process.env.REACT_APP_MY_SERVER.concat('/comment'), {
                      method: "PUT",
                      headers: { "Content-type": "application/json; charset=UTF-8" },
                      body: JSON.stringify({
@@ -135,8 +137,8 @@ const Comment = ({ visitor }) => {
                   })
                   .then(response => response.json())
                   .then(obj => {
-                     handleDialog('success', 'Great, your comment has been modified.')
                      setTimeout(handleReload, 2000)
+                     handleDialog('success', 'Great, your comment has been modified.')
                   })
                   .catch(err => handleDialog('danger', 'Oh sorry, the server may not be available currently.'))
                }
