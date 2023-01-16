@@ -54,7 +54,7 @@ const Comment = ({ visitor }) => {
       })
       .catch(() => {
          setIsWaiting(false)
-         handleDialog('danger', 'Oh sorry, the server may be offline currently.')
+         handleDialog('danger', 'Oh sorry, the server may be offline currently.', true)
       })
 
    }, [reload])
@@ -77,15 +77,15 @@ const Comment = ({ visitor }) => {
       const author = document.getElementById(styles.author).value;
       const content = document.getElementById(styles.content).value;
 
-      if (!author || !content) handleDialog('caution', 'Oh, you have missed filling out the require information field.')
-      else if (author.length < 6) handleDialog('caution', 'Oh, your name is quite short. May you provide more details?')
-      else if (author.length > 30) handleDialog('caution', 'Oh, your name is quite long. May you shorten it so that we can remember it easier?')
-      else if (content.length < 16) handleDialog('caution', 'Oh, you comment is not specific enough. I am waiting for more of your feeling now.')
-      else if (content.length > 200) handleDialog('caution', 'Oh, your comment is valuable but quite long. Please help me summarize it.')
+      if (!author || !content) handleDialog('caution', 'Oh, you have missed filling out the require information field.', true)
+      else if (author.length < 6) handleDialog('caution', 'Oh, your name is quite short. May you provide more details?', true)
+      else if (author.length > 30) handleDialog('caution', 'Oh, your name is quite long. May you shorten it so that we can remember it easier?', true)
+      else if (content.length < 16) handleDialog('caution', 'Oh, you comment is not specific enough. I am waiting for more of your feeling now.', true)
+      else if (content.length > 200) handleDialog('caution', 'Oh, your comment is valuable but quite long. Please help me summarize it.', true)
 
       else if (hadPosted) {
          if (author === personalComment.author && content === personalComment.content)
-            handleDialog('caution', 'Oh, you have not changed anything.')
+            handleDialog('caution', 'Oh, you have not changed anything.', true)
       } 
       
       else {
@@ -119,10 +119,10 @@ const Comment = ({ visitor }) => {
                   })
                   .then(response => response.json())
                   .then(obj => {
-                     handleDialog('success', 'Great, your comment has been posted.', true)
+                     handleDialog('success', 'Great, your comment has been posted.', false)
                      setTimeout(handleReload, 2000)
                   })
-                  .catch(err => handleDialog('danger', 'Oh sorry, the server may not be available currently.'))
+                  .catch(err => handleDialog('danger', 'Oh sorry, the server may not be available currently.', true))
                }
                else if (isEditing) {
                   fetch(process.env.REACT_APP_MY_SERVER.concat('/comment'), {
@@ -136,10 +136,10 @@ const Comment = ({ visitor }) => {
                   })
                   .then(response => response.json())
                   .then(obj => {
-                     handleDialog('success', 'Great, your comment has been modified.', true)
+                     handleDialog('success', 'Great, your comment has been modified.', false)
                      setTimeout(handleReload, 2000)
                   })
-                  .catch(err => handleDialog('danger', 'Oh sorry, the server may not be available currently.'))
+                  .catch(err => handleDialog('danger', 'Oh sorry, the server may not be available currently.', true))
                }
             }
          })
