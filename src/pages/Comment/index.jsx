@@ -44,8 +44,9 @@ const Comment = ({ visitor }) => {
          fetch(process.env.REACT_APP_MY_SERVER.concat('/comment'))
          .then(res => res.json())
          .then(obj => {
-            if (obj.msg.length > 0) setCommentHistory(obj.msg.filter(e => e['_id'] != _id))
-            setCommentHistory([...commentHistory, {
+            let tempCommentHistory
+            if (obj.msg.length > 0) tempCommentHistory = obj.msg.filter(e => e['_id'] != _id)
+            setCommentHistory([...tempCommentHistory, {
                author: 'Virtual assistant',
                content: 'There is nothing else here.'
             }])
