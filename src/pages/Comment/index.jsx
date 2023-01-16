@@ -68,9 +68,9 @@ const Comment = ({ visitor }) => {
       setIsFetching(false)
    }
 
-   const handleDialog = (type, message) => {
+   const handleDialog = (type, message, waitToRemove) => {
       setDialog({ type, message })
-      setTimeout(() => setDialog({}), 5000)
+      if (waitToRemove) setTimeout(() => setDialog({}), 5000)
    }
 
    const handleSubmit = () => {
@@ -104,8 +104,7 @@ const Comment = ({ visitor }) => {
          })
          .then(({language, confidence}) => {
             if (language !== 'en' || confidence < 8) {
-               setTimeout(handleReload, 2000)
-               handleDialog('caution', 'Oops, your comment may not be English. Please be more accurate.')
+               handleDialog('caution', 'Oops, your comment may not be English. Please be more accurate.', true)
             }
             else {
                if (!hadPosted) {
@@ -120,8 +119,8 @@ const Comment = ({ visitor }) => {
                   })
                   .then(response => response.json())
                   .then(obj => {
+                     handleDialog('success', 'Great, your comment has been posted.', true)
                      setTimeout(handleReload, 2000)
-                     handleDialog('success', 'Great, your comment has been posted.')
                   })
                   .catch(err => handleDialog('danger', 'Oh sorry, the server may not be available currently.'))
                }
@@ -137,8 +136,8 @@ const Comment = ({ visitor }) => {
                   })
                   .then(response => response.json())
                   .then(obj => {
+                     handleDialog('success', 'Great, your comment has been modified.', true)
                      setTimeout(handleReload, 2000)
-                     handleDialog('success', 'Great, your comment has been modified.')
                   })
                   .catch(err => handleDialog('danger', 'Oh sorry, the server may not be available currently.'))
                }
