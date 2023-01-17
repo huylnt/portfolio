@@ -86,6 +86,13 @@ const Comment = ({ visitor }) => {
     
       else {
          setIsFetching(true)
+         if (isEditing) {
+            if (author === personalComment.author && content === personalComment.content) {
+               setIsFetching(false)
+               handleDialog('caution', 'Oh, you have not changed anything.', true)
+               return
+            }
+         }
          fetch(process.env.REACT_APP_LANGUAGE_DETECTION.concat(content), {
             method: 'POST',
             headers: {
@@ -121,28 +128,22 @@ const Comment = ({ visitor }) => {
                   })
                   .catch(err => handleDialog('danger', 'Oh sorry, the server may not be available currently.', true))
                }
-               else if (isEditing) {
-                  if (author === personalComment.author && content === personalComment.content) {
-                     setIsFetching(false)
-                     handleDialog('caution', 'Oh, you have not changed anything.', true)
-                  }
                      
-                  else fetch(process.env.REACT_APP_MY_SERVER.concat('/comment'), {
-                     method: "PUT",
-                     headers: { "Content-type": "application/json; charset=UTF-8" },
-                     body: JSON.stringify({
-                        visitor: visitor['ip_address'],
-                        author,
-                        content
-                     }),
-                  })
-                  .then(response => response.json())
-                  .then(obj => {
-                     handleDialog('success', 'Great, your comment has been modified.', false)
-                     setTimeout(handleReload, 2000)
-                  })
-                  .catch(err => handleDialog('danger', 'Oh sorry, the server may not be available currently.', true))
-               }
+               else fetch(process.env.REACT_APP_MY_SERVER.concat('/comment'), {
+                  method: "PUT",
+                  headers: { "Content-type": "application/json; charset=UTF-8" },
+                  body: JSON.stringify({
+                     visitor: visitor['ip_address'],
+                     author,
+                     content
+                  }),
+               })
+               .then(response => response.json())
+               .then(obj => {
+                  handleDialog('success', 'Great, your comment has been modified.', false)
+                  setTimeout(handleReload, 2000)
+               })
+               .catch(err => handleDialog('danger', 'Oh sorry, the server may not be available currently.', true))
             }
          })
       }
