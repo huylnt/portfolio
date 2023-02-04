@@ -1,5 +1,5 @@
-import { useState, useEffect } from "react"
-
+import { useState, useEffect, useContext, useLayoutEffect } from "react"
+import { Context } from "context"
 import CommentButton from "./components/CommentButton"
 import CommentCard from "./components/CommentCard"
 
@@ -10,63 +10,65 @@ import { HiOutlineUser } from 'react-icons/hi'
 
 import styles from './index.module.scss'
 
-const Comment = ({ visitor }) => {
-   const [isWaiting, setIsWaiting] = useState(true)
-   const [isFetching, setIsFetching] = useState(false)
-   const [commentHistory, setCommentHistory] = useState([])
+
+
+const Comment = () => {
+   const globalState = useContext(Context)
+   const { visitor, commentHistory, setCommentHistory } = globalState
+
    const [personalComment, setPersonalComment] = useState(null)
+
+   const [isFetching, setIsFetching] = useState(false)
    const [hadPosted, setHadPosted] = useState(false)
    const [isEditing, setIsEditing] = useState(false)
    const [reload, setReload] = useState(0)
    const [dialog, setDialog] = useState({})
 
    useEffect(() => {
-      let _id;
-      fetch(process.env.REACT_APP_MY_SERVER.concat('/welcome'), {
-         method: "POST",
-         headers: { "Content-type": "application/json; charset=UTF-8" },
-         body: JSON.stringify({
-            visitor: visitor['ip_address'],
-         }),
-      })
 
+      const commentAuthor = localStorage?.getItem('commentAuthor')
+      const commentContent = localStorage?.getItem('commentContent')
 
-      fetch(process.env.REACT_APP_MY_SERVER.concat('/comment/').concat(visitor['ip_address']))
-      .then(res => res.json())
-      .then(obj => {
-          setPersonalComment(obj.msg)
-         if (obj.msg !== null) {
-            setHadPosted(true)
-            _id = obj.msg['_id']
-         }
-      })
-      .then(() => {
-         fetch(process.env.REACT_APP_MY_SERVER.concat('/comment'))
+      if (commentAuthor && commentContent) {
+         setPersonalComment(personalComment => ({author: commentAuthor, content: commentContent}))
+         setHadPosted(true)
+
+      }
+      else {
+         fetch(process.env.REACT_APP_MY_SERVER.concat('/comment/').concat(visitor['ip_address']))
          .then(res => res.json())
          .then(obj => {
-            let tempCommentHistory
-            if (obj.msg.length > 0) tempCommentHistory = obj.msg.filter(e => e['_id'] != _id)
+            if (obj.msg !== null) {
+               localStorage.setItem('commentAuthor', obj.msg.author)
+               localStorage.setItem('commentContent', obj.msg.content)
+               setPersonalComment(obj.msg)
+               setHadPosted(true)
+            }
+         })
+      }
+      
+
+      if (commentHistory.length < 1) {
+         fetch(process.env.REACT_APP_MY_SERVER.concat('/comment')).then(res => res.json()).then(obj => {
+            const tempCommentHistory = obj.msg.filter(comment => comment.author != localStorage?.getItem('commentAuthor'))
             setCommentHistory([...tempCommentHistory, {
                author: 'Virtual assistant',
                content: 'There is nothing else here.'
             }])
-            setIsWaiting(false)
          })
-      })
-      .catch(() => {
-         setIsWaiting(false)
-         handleDialog('danger', 'Oh sorry, the server may be offline currently.', true)
-      })
+      }
 
    }, [reload])
 
    const handleReload = () => {
-      setReload(reload + 1)
+      
       setDialog({})
-      setCommentHistory(commentHistory.splice(0, commentHistory.length))
+
       setHadPosted(false)
       setIsEditing(false)
       setIsFetching(false)
+
+      setReload(reload + 1)
    }
 
    const handleDialog = (type, message, waitToRemove) => {
@@ -111,6 +113,8 @@ const Comment = ({ visitor }) => {
                handleDialog('caution', 'Oops, your comment may not be English. Please be more accurate.', true)
             }
             else {
+               localStorage.setItem('commentAuthor', author)
+               localStorage.setItem('commentContent', content)
                if (!hadPosted) {
                   fetch(process.env.REACT_APP_MY_SERVER.concat('/comment'), {
                      method: "POST",
@@ -128,7 +132,7 @@ const Comment = ({ visitor }) => {
                   })
                   .catch(err => handleDialog('danger', 'Oh sorry, the server may not be available currently.', true))
                }
-                     
+               
                else fetch(process.env.REACT_APP_MY_SERVER.concat('/comment'), {
                   method: "PUT",
                   headers: { "Content-type": "application/json; charset=UTF-8" },
@@ -156,6 +160,10 @@ const Comment = ({ visitor }) => {
 
    const handleDelete = () => {
       setIsFetching(true)
+      
+      localStorage.removeItem('commentAuthor')
+      localStorage.removeItem('commentContent')
+
       fetch(process.env.REACT_APP_MY_SERVER.concat('/comment'), {
          method: "DELETE",
          headers: { "Content-type": "application/json; charset=UTF-8" },
@@ -180,13 +188,12 @@ const Comment = ({ visitor }) => {
 
       <p> Comment history </p>
       <div className={styles.commentArea}>
-         {isWaiting && <LoadingButton layoutHeight='300px' height = '40px' />}
+         {commentHistory.length < 1 && <LoadingButton layoutHeight='300px' height = '40px' />}
          {commentHistory.map((comment, index) => <CommentCard key = {index} {...comment} />)}
       </div>
 
       <p> Write your own comment </p>
       <div>
-
          <label style={{ position: 'relative' }}>
             {!hadPosted && <input id={styles.author} type='text' placeholder="Type your name here" />}
             {hadPosted && !isEditing && <input id={styles.author} type='text' placeholder={personalComment.author} disabled/>}

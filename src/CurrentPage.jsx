@@ -8,7 +8,7 @@ import Comment from "pages/Comment"
 
 import styles from './CurrentPage.module.scss'
 
-const CurrentPage = ({pageName, device, visitor}) => {
+const CurrentPage = ({pageName, device}) => {
      let page
      switch (pageName) {
           case 'Introduction':
@@ -24,7 +24,7 @@ const CurrentPage = ({pageName, device, visitor}) => {
                page = <Contact device = {device}/>
                break
           case 'Comment':
-               page = <Comment visitor = {visitor} />
+               page = <Comment />
                break
           default:
                page = <h1> {'Page is not found'} </h1>

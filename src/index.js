@@ -1,6 +1,12 @@
 import ReactDOM from 'react-dom'
+import { GlobalState } from 'context'
+import App from 'App.jsx'
 
 import 'index.css'
-import App from 'App.js'
 
-ReactDOM.render(<App />, document.getElementById('root'))
+
+ReactDOM.render(
+     <GlobalState>
+          <App />
+     </GlobalState>, 
+document.getElementById('root'))

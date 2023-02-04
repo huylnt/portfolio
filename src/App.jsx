@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-
+import React, { useState, useEffect, useContext } from 'react';
+import { Context } from 'context';
 import styles from 'App.module.scss'
 
 import LoadingButton from 'components/LoadingButton'
@@ -7,10 +7,12 @@ import PageIcon from 'components/PageIcon';
 import CurrentPage from 'CurrentPage';
 
 const App = () => {
+  const globalState = useContext(Context)
+  const { visitor, handleVisitorFound } = globalState
+
   const [currentPage, setCurrentPage] = useState('Introduction')
   const [isWaiting, setIsWaiting] = useState('true')
   const [device, setDevice] = useState()
-  const [visitor, setVisitor] = useState()
 
   const pages = ['Introduction', 'Expertise', 'Project', 'Contact', 'Comment']
 
@@ -49,17 +51,17 @@ const App = () => {
 
     fetch(process.env.REACT_APP_LOCATION.concat(process.env.REACT_APP_LOCATION_KEY))
     .then(res => res.json())
-    .then(data => setVisitor(data))
+    .then(data => handleVisitorFound(data))
 
   }, [])
 
   if (isWaiting) {
     return (
       <>
-        {visitor && <div className={styles.greeting}>
-          <p> Welcome my new friend from <span>{visitor.city}</span>, {visitor.country}</p>
+        <div className={styles.greeting}>
+          <p> Welcome my new friend from <span>{visitor?.city}</span>, {visitor?.country}</p>
           <p> It may not be your <span>exact location</span>, but your browser tells me this.</p>
-        </div>}
+        </div>
 
         <LoadingButton layoutHeight = '600px' height = '40px' />
       </>
@@ -77,7 +79,7 @@ const App = () => {
             <img src='./avatar.jpg' id={styles.avatar} />
 
             <div className={styles.pageDesktop}>
-              {visitor && <CurrentPage pageName={currentPage} device={device} visitor={visitor} />}
+              {visitor && <CurrentPage pageName={currentPage} device={device} />}
             </div>
           </div>
 
