@@ -59,17 +59,18 @@ const Comment = () => {
    }, [reload])
 
    const handleReload = () => {
+      console.log('Here')
       setHadPosted(false)
       setIsEditing(false)
       setIsFetching(false)
 
-      setReload(reload + 1)
+      setReload(prev => prev + 1)
    }
 
    const handleSubmit = () => {
       const author = document.getElementById('author').value;
       const content = document.getElementById('content').value;
-      console.log(content)
+
       if (!author || !content) toast({
          title: 'Oh, you have missed filling out the required information field.',
          variant: 'subtle',
