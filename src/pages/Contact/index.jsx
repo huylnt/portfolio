@@ -1,8 +1,7 @@
 import { memo } from 'react'
-import styles from './index.module.scss'
-
+import { Text } from '@chakra-ui/react'
 import profileLink from 'profileLink'
-import ContactCard from './components/ContactCard'
+import ContactCard from './ContactCard'
 
 const Contact = ({ device }) => {
    let iconSize = '100'
@@ -31,19 +30,19 @@ const Contact = ({ device }) => {
          content: 'Ho Chi Minh city, Viet Nam'
       },
    ]
-   return <div className = {styles.pageLayout}>
+   return <div>
 
-      <p className = {styles.title}> 
-         Feel free to contact me for work or daily-life concerns between <br /> <span className = {styles.time}> 8.00 am </span> to <span className = {styles.time}> 10.00 pm </span>
-      </p>
+      <Text color='heading' fontSize='125%' fontWeight='bold' bg='background' borderRadius='20px' padding='20px' boxShadow='rgba(50, 50, 93, 0.25) 0px 30px 60px -12px, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px' marginBottom='30px'> 
+         Feel free to contact me for work or daily-life concerns between <span style={{fontFamily: `'Permanent Marker', cursive`}}> 8.00 am </span> to <span style={{fontFamily: `'Permanent Marker', cursive`}}> 10.00 pm </span>
+      </Text>
 
-      <div className = {styles.contactLayout}>
+      <div>
          {contacts.map((contact, index) => <ContactCard key = {index} {...contact} />)}
       </div>
 
       <br />
 
-      <iframe src = {profileLink.map} width="90%" height="300px" allowFullScreen loading="lazy" referrerPolicy="no-referrer-when-downgrade" style={{ border: '0', borderRadius: '20px', margin: '5px 0 0 0' }}></iframe>
+      <iframe src = {profileLink.map} width="100%" height="300px" allowFullScreen loading="lazy" referrerPolicy="no-referrer-when-downgrade" style={{ border: '0', borderRadius: '20px', margin: '5px 0 0 0' }}></iframe>
 
    </div>
 

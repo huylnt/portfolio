@@ -1,12 +1,16 @@
 import ReactDOM from 'react-dom'
-import { GlobalState } from 'context'
-import App from 'App.jsx'
+import { VisitorContext } from 'context/VisitorContext'
+import { CommentContext } from 'context/CommentContext'
+
+import App from 'App'
 
 import 'index.css'
 
 
 ReactDOM.render(
-     <GlobalState>
-          <App />
-     </GlobalState>, 
+     <VisitorContext>
+          <CommentContext>
+               <App />
+          </CommentContext>
+     </VisitorContext>, 
 document.getElementById('root'))

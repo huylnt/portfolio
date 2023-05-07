@@ -1,6 +1,5 @@
-import globalStyles from 'App.module.scss'
-import ExpertiseCard from './components/ExpertiseCard'
-
+import ExpertiseCard from './ExpertiseCard'
+import { Text } from '@chakra-ui/react'
 const Expertise = () => {
 
    const feSkills = [
@@ -38,6 +37,7 @@ const Expertise = () => {
       },
 
    ]
+
    const beSkills = [
       {
          skillName: 'Node.js',
@@ -56,6 +56,7 @@ const Expertise = () => {
          completeness: '60%',
       },
    ]
+
    const dbSkills = [
       {
          skillName: 'Microsoft SQL Server',
@@ -70,12 +71,14 @@ const Expertise = () => {
          completeness: '20%',
       },
    ]
+
    const otherSkills = [
       {
          skillName: 'Git Version Control',
          completeness: '50%',
       },
    ]
+
    const languages = [
       {
          skillName: 'English',
@@ -86,6 +89,7 @@ const Expertise = () => {
          completeness: '95%',
       },
    ]
+   
    const softSkills = [
       {
          skillName: 'Presentation',
@@ -103,32 +107,42 @@ const Expertise = () => {
 
    return <div style={{width: '100%', height: 'inherit'}}>
 
-      <p className = {globalStyles.heading}>Front-End Skills</p>
+      <Text color='heading' fontWeight='bold' fontSize='125%'>Front-End Skills</Text>
       <div>
          { feSkills.map((feSkill, index) => <ExpertiseCard key = {index} {...feSkill} />)}
       </div>
 
-      <p className = {globalStyles.heading}>Back-End Skills</p>
+      <br />
+
+      <Text color='heading' fontWeight='bold' fontSize='125%'>Back-End Skills</Text>
       <div>
          { beSkills.map((beSkill, index) => <ExpertiseCard key = {index} {...beSkill} />)}
       </div>
 
-      <p className = {globalStyles.heading}>Database</p>
+      <br />
+
+      <Text color='heading' fontWeight='bold' fontSize='125%'>Database</Text>
       <div>
          { dbSkills.map((dbSkill, index) => <ExpertiseCard key = {index} {...dbSkill} />)}
       </div>
 
-      <p className = {globalStyles.heading}>Other skills</p>
+      <br />
+
+      <Text color='heading' fontWeight='bold' fontSize='125%'>Other skills</Text>
       <div>
          { otherSkills.map((otherSkill, index) => <ExpertiseCard key = {index} {...otherSkill} />)}
       </div>
 
-      <p className = {globalStyles.heading}>Natural Languages</p>
+      <br />
+
+      <Text color='heading' fontWeight='bold' fontSize='125%'>Natural Languages</Text>
       <div>
          { languages.map((language, index) => <ExpertiseCard key = {index} {...language} />)}
       </div>
 
-      <p className = {globalStyles.heading}>Soft skills</p>
+      <br />
+      
+      <Text color='heading' fontWeight='bold' fontSize='125%'>Soft skills</Text>
       <div>
          { softSkills.map((softSkill, index) => <ExpertiseCard key = {index} {...softSkill} />)}
       </div>

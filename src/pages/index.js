@@ -1,0 +1,6 @@
+export { default as Introduction } from './Introduction'
+export { default as Comment } from './Comment'
+export { default as Contact } from './Contact'
+export { default as Expertise } from './Expertise'
+export { default as Project } from './Project'
+export { default as Welcome } from './Welcome'

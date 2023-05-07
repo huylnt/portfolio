@@ -1,10 +1,10 @@
 import React, { useState, createContext } from 'react'
 
-const Context = createContext()
+const originCommentContext = createContext()
 
-const GlobalState = ({children}) => {
-     const [visitor, setVisitor] = useState()
+const CommentContext = ({children}) => {
 	const [commentHistory, setCommentHistory] = useState([])
+     const [personalComment, setPersonalComment] = useState(null)
 
      const handleVisitorFound = (visitor) => {
 
@@ -19,15 +19,15 @@ const GlobalState = ({children}) => {
           })
      }
 	return (
-		<Context.Provider value = {{
+		<originCommentContext.Provider value = {{
                commentHistory, 
-               setCommentHistory, 
-               visitor, 
-               handleVisitorFound
+               setCommentHistory,
+               personalComment,
+               setPersonalComment
           }}> 
 			{children} 
-		</Context.Provider>
+		</originCommentContext.Provider>
 	)
 }
 
-export {Context, GlobalState}
+export {originCommentContext, CommentContext}

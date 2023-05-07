@@ -1,22 +1,65 @@
-@import url('https://fonts.googleapis.com/css2?family=Cantarell&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Oleo+Script&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Jost&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap');
 
 :root {
-  --theme-text: #3d874f;
-  --theme-background: rgba(11, 90, 36, 0.671);
+  --primary: #e3dfdf;
+  --secondary: #2c5845;
+  --accent: #3b5644;
+  --heading: #09401f;
+ 
+  --success: #427A4F;
+  --caution: #6A4379;
+  --danger: #8A323F;
 }
 
-* {
-  box-sizing: border-box;
-}
 body {
   margin: 0;
   padding: 0;
-  font-family: 'Tinos', serif;
   color: rgb(58, 49, 49);
   position: relative;
   overflow-x: hidden;
   overflow-y: scroll;
-  line-height: 2;
   box-sizing: border-box;
+  font-size: 20px !important;
+  font-family: 'Jost', sans-serif !important;
+}
+
+.path-active {
+  font-weight: bolder;
+}
+
+.path-active div {
+  border-left: 8px solid var(--secondary);
+}
+
+a {
+  text-decoration: none !important;
+}
+
+@keyframes widthIncrease {
+  to {
+       width: 100%;
+  }
+}
+
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #fdfdfd;
+
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: var(--primary);
+  border-radius: 50px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555; 
 }

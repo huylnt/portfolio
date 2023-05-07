@@ -1,31 +1,32 @@
 import profileLink from 'profileLink'
 import OtherSite from 'components/OtherSite'
-
-import globalStyles from 'App.module.scss'
-import styles from './index.module.scss'
+import { Text, Box } from '@chakra-ui/react'
 
 const Introduction = () => {
 
    return <div>
 
-         <p className={styles.name}> I'm Huy Le Nguyen Truong </p>
+         <Text color='heading' fontSize='150%' fontWeight='bold'> I'm Huy Le Nguyen Truong </Text>
 
-         <p className={styles.occupation}> Full-stack Web Developer </p>
+         <Text color='heading' fontSize='125%' fontWeight='bold' fontStyle='italic' marginTop='15px'> Full-stack Web Developer </Text>
+         
+         <br />
 
-         <p className={styles.content}>
+         <Text>
             Nice to see you here!
             <br />  <br />
             I always want to improve myself everyday. I have not only studied well at university but also spent most of my free time to discover new things online, gather new technical knowledge, update myself with the latest technology.
             <br />  <br />
             With good English communication skills and also great soft skills, I am confident that I can become familiar with any new environment.
-         </p>
+         </Text>
 
-         <div className={styles.linkList}>
+         <br />
+
+         <Box marginTop='50px'>
             <OtherSite href={profileLink.cv} content='View my CV' />
-            <OtherSite href={profileLink.githubClient} content='View my client code' />
-            <OtherSite href={profileLink.githubServer} content='View my server code' />
-         </div>
-
+            <OtherSite href={profileLink.portfolioClient} content='View my front-end' />
+            <OtherSite href={profileLink.portfolioServer} content='View my back-end' />
+         </Box>
 
    </div>
 }

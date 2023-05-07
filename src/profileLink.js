@@ -1,7 +1,9 @@
 const profileLink = {
-     cv: 'https://www.canva.com/design/DAE6WPw8UjE/Vq1opQnJbtFZqhzkjOoO6g/view?website#2',
-     githubClient: 'https://github.com/20127037/my-portfolio-client',
-     githubServer: 'https://github.com/20127037/my-portfolio-server',
+     cv: 'https://www.canva.com/design/DAFZYMjcstw/sxsPdCDi_pzRvRPVSR02Sw/view?utm_content=DAFZYMjcstw&utm_campaign=designshare&utm_medium=link&utm_source=homepage_design_menu',
+     portfolioClient: 'https://github.com/huylnt/portfolio-client',
+     portfolioServer: 'https://github.com/huylnt/porfolio-server',
+     paintClient: 'https://github.com/huylnt/paint',
+     shopClient: 'https://github.com/huylnt/shop',
      facebook: 'https://www.facebook.com/profile.php?id=100057375273139',
      email: 'lnthuy29012002@gmail.com',
      phone: '+84774848931',

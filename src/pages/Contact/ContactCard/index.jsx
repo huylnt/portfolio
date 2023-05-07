@@ -1,10 +1,8 @@
-import React, { memo } from "react"
 import {FiPhoneCall} from 'react-icons/fi'
 import {CgMail} from 'react-icons/cg'
 import {RiFacebookCircleLine} from 'react-icons/ri'
 import {TfiLocationPin} from 'react-icons/tfi'
-
-import styles from './index.module.scss'
+import { Flex } from '@chakra-ui/react'
 
 const ContactCard = ({iconFamily, href, content}) => {
      let icon
@@ -24,11 +22,11 @@ const ContactCard = ({iconFamily, href, content}) => {
      }
 
      return (
-     <div className = {styles.cardLayout}>
-          { React.cloneElement(icon, { className: styles.icon }) }
+     <Flex gap='20px' padding='10px 15px' marginTop='10px' align='center' borderRadius='10px' _hover={{background: 'var(--primary)'}}>
+          {icon}
           <a href = {href}>{content}</a>
-     </div>
+     </Flex>
      )
 }
 
-export default memo(ContactCard)
+export default ContactCard
