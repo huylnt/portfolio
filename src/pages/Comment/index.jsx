@@ -33,7 +33,7 @@ const Comment = () => {
       }
 
       else {
-         fetch(process.env.REACT_APP_MY_SERVER.concat('/comment/').concat(visitor.ip))
+         fetch(process.env.REACT_APP_MY_SERVER.concat('/comment/').concat(visitor?.ip))
             .then(res => res.json())
             .then(obj => {
                if (obj.msg !== null) {
@@ -274,8 +274,8 @@ const Comment = () => {
 
       <Text color='heading' fontWeight='bold' fontSize='125%'> Comment history </Text>
       <Box height='50%' overflowY='auto' marginY='10px'>
-         <Box marginRight='15px'>
-            {commentHistory.length < 1 && <Center>
+         <Box marginRight='15px' height='100%'>
+            {commentHistory.length < 1 && <Center height='100%'>
                <Spinner
                   thickness='4px'
                   speed='0.65s'

@@ -1,19 +1,31 @@
-import { useEffect } from 'react'
+import { useEffect, useContext } from 'react'
 import { useNavigate } from 'react-router'
 import { Outlet, NavLink } from 'react-router-dom'
-
+import { originVisitorContext } from "context/VisitorContext"
 import { Flex, Container, Text, Box, Icon, Avatar, Image } from '@chakra-ui/react'
-import {HiOutlinePresentationChartLine} from 'react-icons/hi'
-import {GiAlliedStar} from 'react-icons/gi'
-import {AiOutlineProject, AiOutlineContacts} from 'react-icons/ai'
-import {BiCommentEdit} from 'react-icons/bi'
+import { HiOutlinePresentationChartLine } from 'react-icons/hi'
+import { GiAlliedStar } from 'react-icons/gi'
+import { AiOutlineProject, AiOutlineContacts } from 'react-icons/ai'
+import { BiCommentEdit } from 'react-icons/bi'
 
 const SidePanel = () => {
-  const navigate = useNavigate()
+  const visitorContext = useContext(originVisitorContext)
+  const { visitor, handleVisitorFound } = visitorContext
+  const navigateTo = useNavigate()
 
   const handleRouteChanged = async (path) => {
     localStorage.setItem('route', path)
   }
+
+  const detectVisitor = async () => {
+    const response = await fetch(process.env.REACT_APP_LOCATION)
+    const content = await response.json()
+    handleVisitorFound(content)
+  }
+
+  useEffect(() => {
+    detectVisitor()
+  }, [])
 
   return (
     <Flex width='100vw' height='100vh' justify='space-around' align='center' gap='100px' overflow='hidden'>
