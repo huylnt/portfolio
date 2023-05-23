@@ -1,4 +1,4 @@
-import { useEffect, useContext } from 'react'
+import { useLayoutEffect, useEffect, useContext, useState } from 'react'
 import { useNavigate } from 'react-router'
 import { Outlet, NavLink } from 'react-router-dom'
 import { originVisitorContext } from "context/VisitorContext"
@@ -8,7 +8,7 @@ import { GiAlliedStar } from 'react-icons/gi'
 import { AiOutlineProject, AiOutlineContacts } from 'react-icons/ai'
 import { BiCommentEdit } from 'react-icons/bi'
 
-const SidePanel = () => {
+const Navigator = () => {
   const visitorContext = useContext(originVisitorContext)
   const { visitor, handleVisitorFound } = visitorContext
   const navigateTo = useNavigate()
@@ -23,12 +23,21 @@ const SidePanel = () => {
     handleVisitorFound(content)
   }
 
+  const [width, setWidth] = useState(window.innerWidth);
+  const handleWindowResize = () => {
+    setWidth(window.innerWidth);
+  }
+
+  useLayoutEffect(() => {
+    window.addEventListener('resize', handleWindowResize);
+  }, []);
+
   useEffect(() => {
     detectVisitor()
   }, [])
 
-  return (
-    <Flex width='100vw' height='100vh' justify='space-around' align='center' gap='100px' overflow='hidden'>
+  return (width >= 1200) ? <Flex width='100vw' height='100vh' justify='space-between' align='center' gap='6vw' overflowY='scroll'>
+    <Flex pos='sticky' top='10vh' height='80vh' justify='flex-start' align='center' gap='6vw' width='25vw'>
       <Box minWidth='150px' height='fit-content' position='relative' marginLeft='30px' borderRadius='30px' boxShadow='rgba(255, 255, 255, 0.1) 0px 1px 1px 0px inset, rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px' fontSize='80%'>
 
         <NavLink to='/introduction' className={({ isActive }) => (isActive ? 'path-active' : 'path')} onClick={() => handleRouteChanged('/introduction')}>
@@ -67,13 +76,15 @@ const SidePanel = () => {
         </NavLink>
       </Box>
 
-      <Image src='avatar.jpg' height='80%' rounded='30px' transform='rotate(-5deg)' boxShadow='dark-lg' />
-
-      <Box flexGrow='8' height='100%' m='20px' p='15px' overflowY='auto'>
-        <Outlet />
-      </Box>
+      <Image src='avatar.jpg' boxSize='80vh' fit='cover' rounded='30px' transform='rotate(-5deg)' boxShadow='dark-lg' />
     </Flex>
-  )
+
+    <Box width='50vw' height='100%' p='15px'>
+      <Outlet />
+    </Box>
+  </Flex> : <Flex>
+      sdsdsa
+  </Flex>
 }
 
-export default SidePanel
+export default Navigator

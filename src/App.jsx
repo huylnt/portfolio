@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
-import SidePanel from 'SidePanel'
+import Navigator from 'Navigator'
 import { Introduction, Comment, Contact, Expertise, Project, Welcome } from 'pages'
 
 import { extendTheme, ChakraProvider } from '@chakra-ui/react'
@@ -21,7 +21,7 @@ const App = () => {
       <BrowserRouter>
         <Routes>
           <Route index element={<Welcome />} />
-          <Route path='/' element={<SidePanel />}>
+          <Route path='/' element={<Navigator />}>
             <Route path='/introduction' element={<Introduction />} />
             <Route path='/comment' element={<Comment />} />
             <Route path='/contact' element={<Contact />} />

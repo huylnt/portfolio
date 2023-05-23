@@ -2,12 +2,18 @@ import { Link, Flex } from '@chakra-ui/react'
 import { RxRocket } from 'react-icons/rx'
 
 const OtherSite = ({ href, content }) => {
-     return <Link href={href} target='_blank'>
-          <Flex bg='accent' color='white' gap='10px' padding='15px' borderRadius='full' marginY='15px' align='center' _hover={{filter: 'brightness(150%)'}}>
-               <RxRocket />
-               {content}
-          </Flex>
-     </Link>
+     const handleClicked = () => {
+          if (Array.isArray(href)) {
+               href.forEach(link => window.open(link, "_blank"))
+          }
+          else window.open(href, "_blank")
+     }
+
+     return <Flex bg='accent' color='white' gap='10px' padding='10px 15px' borderRadius='full' marginY='15px' align='center' _hover={{ filter: 'brightness(150%)', cursor: 'pointer'}} onClick={handleClicked}>
+          <RxRocket />
+          {content}
+     </Flex>
+
 }
 
 export default OtherSite

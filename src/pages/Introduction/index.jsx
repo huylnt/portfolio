@@ -1,14 +1,12 @@
 import profileLink from 'profileLink'
 import OtherSite from 'components/OtherSite'
-import { Text, Box } from '@chakra-ui/react'
+import { Text, Box, Center } from '@chakra-ui/react'
 
 const Introduction = () => {
 
-   return <div>
+   return <Center flexFlow='column' height='100vh' width='100%'>
 
-         <Text color='heading' fontSize='150%' fontWeight='bold'> I'm Huy Le Nguyen Truong </Text>
-
-         <Text color='heading' fontSize='125%' fontWeight='bold' fontStyle='italic' marginTop='15px'> Full-stack Web Developer </Text>
+         <Text color='heading' fontSize='150%' fontWeight='bold' textAlign='left'> I'm Huy Le Nguyen Truong </Text>
          
          <br />
 
@@ -22,13 +20,13 @@ const Introduction = () => {
 
          <br />
 
-         <Box marginTop='50px'>
+         <Box marginTop='50px' width='100%'>
             <OtherSite href={profileLink.cv} content='View my CV' />
             <OtherSite href={profileLink.portfolioClient} content='View my front-end' />
             <OtherSite href={profileLink.portfolioServer} content='View my back-end' />
          </Box>
 
-   </div>
+   </Center>
 }
 
 export default Introduction

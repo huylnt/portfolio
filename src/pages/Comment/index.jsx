@@ -157,9 +157,11 @@ const Comment = () => {
                      duration: 3000,
                   })
                }
+
                else {
                   localStorage.setItem('commentAuthor', author)
                   localStorage.setItem('commentContent', content)
+
                   if (!hadPosted) {
                      fetch(process.env.REACT_APP_MY_SERVER.concat('/comment'), {
                         method: "POST",
@@ -170,57 +172,39 @@ const Comment = () => {
                            content
                         }),
                      })
-                        .then(response => response.json())
-                        .then(obj => {
-                           toast({
-                              title: 'Great, your comment has been posted.',
-                              variant: 'subtle',
-                              status: 'success',
-                              position: 'bottom-right',
-                              colorScheme: 'green',
-                              duration: 3000,
-                           })
-                           setTimeout(handleReload, 2000)
-                        })
-                        .catch(err => toast({
-                           title: 'Oh sorry, the server may not be available currently.',
-                           variant: 'subtle',
-                           status: 'error',
-                           position: 'bottom-right',
-                           colorScheme: 'red',
-                           duration: 3000,
-                        }))
+
+                     toast({
+                        title: 'Great, your comment has been posted.',
+                        variant: 'subtle',
+                        status: 'success',
+                        position: 'bottom-right',
+                        colorScheme: 'green',
+                        duration: 3000,
+                     })
                   }
 
-                  else fetch(process.env.REACT_APP_MY_SERVER.concat('/comment'), {
-                     method: "PUT",
-                     headers: { "Content-type": "application/json; charset=UTF-8" },
-                     body: JSON.stringify({
-                        visitor: visitor['ip_address'],
-                        author,
-                        content
-                     }),
-                  })
-                     .then(response => response.json())
-                     .then(obj => {
-                        toast({
-                           title: 'Great, your comment has been modified.',
-                           variant: 'subtle',
-                           status: 'success',
-                           position: 'bottom-right',
-                           colorScheme: 'green',
-                           duration: 3000,
-                        })
-                        setTimeout(handleReload, 2000)
+                  else {
+                     fetch(process.env.REACT_APP_MY_SERVER.concat('/comment'), {
+                        method: "PUT",
+                        headers: { "Content-type": "application/json; charset=UTF-8" },
+                        body: JSON.stringify({
+                           visitor: visitor['ip_address'],
+                           author,
+                           content
+                        }),
                      })
-                     .catch(err => toast({
-                        title: 'Oh sorry, the server may not be available currently.',
+
+                     toast({
+                        title: 'Great, your comment has been modified.',
                         variant: 'subtle',
-                        status: 'error',
+                        status: 'success',
                         position: 'bottom-right',
-                        colorScheme: 'red',
+                        colorScheme: 'green',
                         duration: 3000,
-                     }))
+                     })
+                  }
+
+                  setTimeout(handleReload, 2000)
                }
             })
       }
@@ -244,26 +228,16 @@ const Comment = () => {
             visitor: visitor['ip_address'],
          }),
       })
-         .then(response => response.json())
-         .then(obj => {
-            toast({
-               title: 'You have deleted your comment successfully.',
-               variant: 'subtle',
-               status: 'success',
-               position: 'bottom-right',
-               colorScheme: 'green',
-               duration: 3000,
-            })
-            setTimeout(handleReload, 2000)
-         })
-         .catch(err => toast({
-            title: 'Oh sorry, the server may not be available currently.',
-            variant: 'subtle',
-            status: 'error',
-            position: 'bottom-right',
-            colorScheme: 'red',
-            duration: 3000,
-         }))
+
+      toast({
+         title: 'You have deleted your comment successfully.',
+         variant: 'subtle',
+         status: 'success',
+         position: 'bottom-right',
+         colorScheme: 'green',
+         duration: 3000,
+      })
+      setTimeout(handleReload, 2000)
    }
 
    const handleCancel = () => {
@@ -271,12 +245,12 @@ const Comment = () => {
    }
 
 
-   return <div style={{ width: '100%', height: 'inherit' }}>
+   return <Center flexFlow='column' width='100%'>
 
       <Text color='heading' fontWeight='bold' fontSize='125%'> Comment history </Text>
-      <Box height='50%' overflowY='auto' marginY='10px'>
+      <Box height='50vh' overflowY='scroll' marginY='10px' width='100%'>
          <Box marginRight='15px' height='100%'>
-            {commentHistory.length < 1 && <Center height='100%'>
+            {commentHistory.length < 1 && <Center height='50vh'>
                <Spinner
                   thickness='4px'
                   speed='0.65s'
@@ -291,7 +265,7 @@ const Comment = () => {
 
       <Text color='heading' fontWeight='bold' fontSize='125%' marginTop='20px'> Write your own comment </Text>
 
-      <div>
+      <Box width='100%'>
 
          <label for='author'>
             {!hadPosted && <InputGroup marginY='20px'>
@@ -321,7 +295,7 @@ const Comment = () => {
 
             {hadPosted && !isEditing && <Flex justify='flex-end' gap='10px'>
                <Button variant='outline' colorScheme='red' leftIcon={<AiOutlineDelete />} onClick={handleDelete} isLoading={isFetching} loadingText='Deleting...'>Delete</Button>
-               <Button variant='outline' colorScheme='yellow' leftIcon={<AiOutlineEdit />} onClick={handleEdit} isLoading={isFetching} loadingText='Editing...'>Edit</Button>
+               <Button variant='outline' colorScheme='yellow' leftIcon={<AiOutlineEdit />} onClick={handleEdit}>Edit</Button>
             </Flex>}
 
             {isEditing && <Flex justify='flex-end' gap='10px'>
@@ -332,9 +306,9 @@ const Comment = () => {
          </Flex>
 
 
-      </div>
+      </Box>
 
-   </div>
+   </Center>
 }
 
 export default Comment
