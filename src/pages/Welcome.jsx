@@ -20,21 +20,21 @@ const Welcome = () => {
      }, [])
 
      return (
-          <Center width='100vw' height='100vh' flexFlow='column' gap='80px' textAlign='center' fontSize='150%'>
+          <Center width='100vw' height='100vh' flexFlow='column' gap='80px' textAlign='center' fontSize='150%' paddingX='15px'>
                <div>
-                    <Flex gap='10px' align='center' flexWrap='wrap'> 
-                         <Text>Welcome my new friend from</Text>
 
+                    <Text>Welcome my new friend from</Text>
+
+                    <Flex justify='center' marginY='10px'>
                          <Skeleton isLoaded={visitor?.city.name} height='50px' minWidth='150px' width='max-content' fadeDuration={3} bg='primary' borderRadius='full' textAlign='center' paddingX='10px'>
-                              <span style={{fontFamily: `'Permanent Marker', cursive`, color: 'var(--heading)'}}>{visitor?.city.name}</span>
+                              <span style={{ fontFamily: `'Permanent Marker', cursive`, color: 'var(--heading)' }}>{visitor?.city.name}</span>
                          </Skeleton>
-                         
+
                          <Text>,</Text>
 
                          <Skeleton isLoaded={visitor?.country.name} height='50px' minWidth='150px' width='max-content' fadeDuration={3} bg='primary' borderRadius='full' textAlign='center' paddingX='10px'>
-                              <span style={{fontFamily: `'Permanent Marker', cursive`, color: 'var(--heading)'}}>{visitor?.country.name}</span>
+                              <span style={{ fontFamily: `'Permanent Marker', cursive`, color: 'var(--heading)' }}>{visitor?.country.name}</span>
                          </Skeleton>
-         
                     </Flex>
 
                     <Text fontStyle='italic'> It may not be your <span>exact location</span>, but your browser tells me this.</Text>

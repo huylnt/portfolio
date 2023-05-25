@@ -89,9 +89,9 @@ const Navigator = () => {
       <Outlet />
     </Box>
   </Flex> : <Flex justify='flex-start'>
-    <Flex flexFlow='column' pos='sticky' top='0px' height='100vh' justify='center' align='center' gap='3vh' minWidth={mobileSidePanelExpanded ? '200px' : '100px'} bg='primary' padding='30px 30px 0 30px'>
+    <Flex flexFlow='column' pos='sticky' top='0px' height='100vh' justify='center' align='center' gap='3vh' width={mobileSidePanelExpanded ? '200px' : '100px'} bg='primary' padding='30px 30px 0 30px' boxShadow='rgb(103, 161, 120, 0.8) 3px 2px 8px 0px, rgba(255, 255, 255, 0.4) -3px -2px 8px 0px'>
 
-        <Avatar marginBottom='5vh' src='avatar.jpg' onClick={handleMobileSidePanelResized} _hover={{cursor: 'pointer'}}/>
+        <Avatar size={mobileSidePanelExpanded ? 'xl' : 'lg'} marginBottom='5vh' src='avatar.jpg' onClick={handleMobileSidePanelResized} _hover={{cursor: 'pointer'}}/>
 
         <NavLink to='/introduction' className={({ isActive }) => (isActive ? 'path-active' : 'path')} onClick={() => handleRouteChanged('/introduction')}>
           <Flex justifyContent='flex-start' align='center' gap='15px' padding='1vh' my='10px' rounded='12px' width={mobileSidePanelExpanded ? '180px' : 'max-content'}>
