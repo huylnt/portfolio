@@ -167,7 +167,7 @@ const Comment = () => {
                         method: "POST",
                         headers: { "Content-type": "application/json; charset=UTF-8" },
                         body: JSON.stringify({
-                           visitor: visitor['ip_address'],
+                           visitor: visitor.ip,
                            author,
                            content
                         }),
@@ -188,7 +188,7 @@ const Comment = () => {
                         method: "PUT",
                         headers: { "Content-type": "application/json; charset=UTF-8" },
                         body: JSON.stringify({
-                           visitor: visitor['ip_address'],
+                           visitor: visitor.ip,
                            author,
                            content
                         }),

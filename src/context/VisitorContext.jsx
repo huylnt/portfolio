@@ -12,7 +12,7 @@ const VisitorContext = ({children}) => {
                method: "POST",
                headers: { "Content-type": "application/json; charset=UTF-8" },
                body: JSON.stringify({
-                  visitor: visitor.query,
+                  visitor: visitor.ip,
                }),
           })
      }

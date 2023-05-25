@@ -9,7 +9,7 @@ const Welcome = () => {
      const navigateTo = useNavigate()
 
      const detectVisitor = async () => {
-          const response = await fetch(process.env.REACT_APP_LOCATION)
+          const response = await fetch(process.env.REACT_APP_LOCATION.concat(process.env.REACT_APP_LOCATION_KEY))
           const content = await response.json()
           handleVisitorFound(content)
           setTimeout(() => navigateTo('/introduction'), 4000)
@@ -25,14 +25,14 @@ const Welcome = () => {
                     <Flex gap='10px' align='center' flexWrap='wrap'> 
                          <Text>Welcome my new friend from</Text>
 
-                         <Skeleton isLoaded={visitor?.city} height='50px' minWidth='150px' width='max-content' fadeDuration={3} bg='primary' borderRadius='full' textAlign='center' paddingX='10px'>
-                              <span style={{fontFamily: `'Permanent Marker', cursive`, color: 'var(--heading)'}}>{visitor?.city}</span>
+                         <Skeleton isLoaded={visitor?.city.name} height='50px' minWidth='150px' width='max-content' fadeDuration={3} bg='primary' borderRadius='full' textAlign='center' paddingX='10px'>
+                              <span style={{fontFamily: `'Permanent Marker', cursive`, color: 'var(--heading)'}}>{visitor?.city.name}</span>
                          </Skeleton>
                          
                          <Text>,</Text>
 
-                         <Skeleton isLoaded={visitor?.country} height='50px' minWidth='150px' width='max-content' fadeDuration={3} bg='primary' borderRadius='full' textAlign='center' paddingX='10px'>
-                              <span style={{fontFamily: `'Permanent Marker', cursive`, color: 'var(--heading)'}}>{visitor?.country}</span>
+                         <Skeleton isLoaded={visitor?.country.name} height='50px' minWidth='150px' width='max-content' fadeDuration={3} bg='primary' borderRadius='full' textAlign='center' paddingX='10px'>
+                              <span style={{fontFamily: `'Permanent Marker', cursive`, color: 'var(--heading)'}}>{visitor?.country.name}</span>
                          </Skeleton>
          
                     </Flex>
