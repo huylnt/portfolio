@@ -5,7 +5,7 @@ import profileLink from "profileLink"
 const Project = () => {
    return <Tabs isFitted variant='soft-rounded' colorScheme='green' size='lg' defaultIndex={0}>
 
-         <TabList>
+         <TabList boxShadow='rgba(0, 0, 0, 0.24) 0px 3px 8px' borderRadius='full'>
             <Tab>Web</Tab>
             <Tab>Mobile</Tab>
             <Tab>Desktop</Tab>

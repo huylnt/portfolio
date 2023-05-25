@@ -1,8 +1,9 @@
 import ExpertiseCard from './ExpertiseCard'
-import { Text } from '@chakra-ui/react'
+import { Text, Center, Tabs, TabList, TabPanels, TabPanel, Tab } from '@chakra-ui/react'
+
 const Expertise = () => {
 
-   const feSkills = [
+   const feWebSkills = [
       {
          skillName: 'HTML',
          completeness: '95%',
@@ -33,9 +34,31 @@ const Expertise = () => {
       },
       {
          skillName: 'NextJS',
-         completeness: '20%',
+         completeness: '50%',
       },
 
+   ]
+
+   const feMobileSkills = [
+      {
+         skillName: 'Java for Android',
+         completeness: '45%',
+      },
+      {
+         skillName: 'Flutter',
+         completeness: '30%',
+      },
+   ]
+
+   const feDesktopSkills = [
+      {
+         skillName: 'Windows Forms',
+         completeness: '25%',
+      },
+      {
+         skillName: 'WPF',
+         completeness: '63%',
+      },
    ]
 
    const beSkills = [
@@ -89,7 +112,7 @@ const Expertise = () => {
          completeness: '95%',
       },
    ]
-   
+
    const softSkills = [
       {
          skillName: 'Presentation',
@@ -105,46 +128,67 @@ const Expertise = () => {
       },
    ]
 
-   return <div style={{width: '100%', height: 'inherit'}}>
+   return <div style={{ width: '100%', height: 'inherit' }}>
 
       <Text color='heading' fontWeight='bold' fontSize='125%'>Front-End Skills</Text>
-      <div>
-         { feSkills.map((feSkill, index) => <ExpertiseCard key = {index} {...feSkill} />)}
-      </div>
+
+      <Tabs isFitted variant='soft-rounded' colorScheme='green' size='lg' defaultIndex={0}>
+
+         <TabList marginY='15px' boxShadow='rgba(0, 0, 0, 0.24) 0px 3px 8px' borderRadius='full'>
+            <Tab>Web</Tab>
+            <Tab>Mobile</Tab>
+            <Tab>Desktop</Tab>
+         </TabList>
+
+         <TabPanels>
+            <TabPanel padding='0'>
+               {feWebSkills.map((feSkill, index) => <ExpertiseCard key={index} {...feSkill} />)}
+            </TabPanel>
+
+            <TabPanel padding='0'>
+               {feMobileSkills.map((feSkill, index) => <ExpertiseCard key={index} {...feSkill} />)}
+            </TabPanel>
+
+            <TabPanel padding='0'>
+               {feDesktopSkills.map((feSkill, index) => <ExpertiseCard key={index} {...feSkill} />)}
+            </TabPanel>
+         </TabPanels>
+
+      </Tabs>
 
       <br />
 
       <Text color='heading' fontWeight='bold' fontSize='125%'>Back-End Skills</Text>
       <div>
-         { beSkills.map((beSkill, index) => <ExpertiseCard key = {index} {...beSkill} />)}
+         {beSkills.map((beSkill, index) => <ExpertiseCard key={index} {...beSkill} />)}
       </div>
 
       <br />
 
       <Text color='heading' fontWeight='bold' fontSize='125%'>Database</Text>
       <div>
-         { dbSkills.map((dbSkill, index) => <ExpertiseCard key = {index} {...dbSkill} />)}
+         {dbSkills.map((dbSkill, index) => <ExpertiseCard key={index} {...dbSkill} />)}
       </div>
 
       <br />
 
       <Text color='heading' fontWeight='bold' fontSize='125%'>Other skills</Text>
       <div>
-         { otherSkills.map((otherSkill, index) => <ExpertiseCard key = {index} {...otherSkill} />)}
+         {otherSkills.map((otherSkill, index) => <ExpertiseCard key={index} {...otherSkill} />)}
       </div>
 
       <br />
 
       <Text color='heading' fontWeight='bold' fontSize='125%'>Natural Languages</Text>
       <div>
-         { languages.map((language, index) => <ExpertiseCard key = {index} {...language} />)}
+         {languages.map((language, index) => <ExpertiseCard key={index} {...language} />)}
       </div>
 
       <br />
-      
+
       <Text color='heading' fontWeight='bold' fontSize='125%'>Soft skills</Text>
       <div>
-         { softSkills.map((softSkill, index) => <ExpertiseCard key = {index} {...softSkill} />)}
+         {softSkills.map((softSkill, index) => <ExpertiseCard key={index} {...softSkill} />)}
       </div>
 
    </div>

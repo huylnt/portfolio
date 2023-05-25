@@ -1,5 +1,5 @@
 const profileLink = {
-     cv: 'https://www.canva.com/design/DAFZYMjcstw/sxsPdCDi_pzRvRPVSR02Sw/view?utm_content=DAFZYMjcstw&utm_campaign=designshare&utm_medium=link&utm_source=homepage_design_menu',
+     cv: 'https://www.canva.com/design/DAFj6aBxGR4/O5t_kYQf4Rf6Wu51QJOWzw/view?utm_content=DAFj6aBxGR4&utm_campaign=designshare&utm_medium=link&utm_source=publishsharelink',
      portfolioClient: 'https://github.com/huylnt/portfolio-client',
      portfolioServer: 'https://github.com/huylnt/porfolio-server',
      paintClient: 'https://github.com/huylnt/paint',

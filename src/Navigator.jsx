@@ -85,7 +85,7 @@ const Navigator = () => {
       <Image src='avatar.jpg' fallbackSrc='https://via.placeholder.com/450/1000' boxSize='80vh' fit='cover' rounded='30px' transform='rotate(-5deg)' boxShadow='dark-lg' />
     </Flex>
 
-    <Box width='50vw' height='100%' p='15px'>
+    <Box width='50vw' height='100%' p='15px' overflowY='scroll'>
       <Outlet />
     </Box>
   </Flex> : <Flex justify='flex-start'>

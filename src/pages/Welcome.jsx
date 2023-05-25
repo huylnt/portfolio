@@ -37,7 +37,7 @@ const Welcome = () => {
                          </Skeleton>
                     </Flex>
 
-                    <Text fontStyle='italic'> It may not be your <span>exact location</span>, but your browser tells me this.</Text>
+                    <Text fontStyle='italic' whiteSpace='normal'> It may not be your <span>exact location</span>, but your browser tells me this.</Text>
                </div>
 
                <Spinner
