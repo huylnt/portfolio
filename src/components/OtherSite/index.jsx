@@ -9,7 +9,7 @@ const OtherSite = ({ href, content }) => {
           else window.open(href, "_blank")
      }
 
-     return <Flex bg='accent' color='white' gap='10px' padding='10px 15px' borderRadius='full' marginY='15px' align='center' _hover={{ filter: 'brightness(150%)', cursor: 'pointer'}} onClick={handleClicked}>
+     return <Flex bg='accent' color='white' gap='10px' padding='10px 15px' borderRadius='full' marginTop='20px' align='center' _hover={{ filter: 'brightness(150%)', cursor: 'pointer'}} onClick={handleClicked}>
           <RxRocket />
           {content}
      </Flex>

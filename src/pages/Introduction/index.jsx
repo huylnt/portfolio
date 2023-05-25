@@ -1,15 +1,14 @@
 import profileLink from 'profileLink'
 import OtherSite from 'components/OtherSite'
-import { Text, Box, Center } from '@chakra-ui/react'
+import { Text, Box, Flex } from '@chakra-ui/react'
 
 const Introduction = () => {
 
-   return <Center flexFlow='column' height='100vh' width='100%'>
+   return <Box pos='relative' height='100%'>
 
-         <Text color='heading' fontSize='150%' fontWeight='bold' textAlign='left'> I'm Huy Le Nguyen Truong </Text>
-         
-         <br />
+      <Text color='heading' fontSize='150%' fontWeight='bold' textAlign='left'> I'm Huy Le Nguyen Truong </Text>
 
+      <Box maxHeight='55%' overflowY='scroll' marginY='15px'>
          <Text>
             Nice to see you here!
             <br />  <br />
@@ -17,16 +16,15 @@ const Introduction = () => {
             <br />  <br />
             With good English communication skills and also great soft skills, I am confident that I can become familiar with any new environment.
          </Text>
+      </Box>
 
-         <br />
+      <Flex flexFlow='column' justify='flex-end' width='100%' pos='absolute' bottom='0' right='0'>
+         <OtherSite href={profileLink.cv} content='View my CV' />
+         <OtherSite href={profileLink.portfolioClient} content='View my front-end' />
+         <OtherSite href={profileLink.portfolioServer} content='View my back-end' />
+      </Flex>
 
-         <Box marginTop='50px' width='100%'>
-            <OtherSite href={profileLink.cv} content='View my CV' />
-            <OtherSite href={profileLink.portfolioClient} content='View my front-end' />
-            <OtherSite href={profileLink.portfolioServer} content='View my back-end' />
-         </Box>
-
-   </Center>
+   </Box>
 }
 
 export default Introduction

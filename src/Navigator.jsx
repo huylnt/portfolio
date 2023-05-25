@@ -2,7 +2,7 @@ import { useLayoutEffect, useEffect, useContext, useState } from 'react'
 import { useNavigate } from 'react-router'
 import { Outlet, NavLink } from 'react-router-dom'
 import { originVisitorContext } from "context/VisitorContext"
-import { Flex, Container, Text, Box, Icon, Avatar, Image } from '@chakra-ui/react'
+import { Flex, Text, Box, Icon, Avatar, Image } from '@chakra-ui/react'
 import { HiOutlinePresentationChartLine } from 'react-icons/hi'
 import { GiAlliedStar } from 'react-icons/gi'
 import { AiOutlineProject, AiOutlineContacts } from 'react-icons/ai'
@@ -26,6 +26,12 @@ const Navigator = () => {
   const [width, setWidth] = useState(window.innerWidth);
   const handleWindowResize = () => {
     setWidth(window.innerWidth);
+  }
+
+  const [mobileSidePanelExpanded, setMobileSidePanelExpanded] = useState(false)
+
+  const handleMobileSidePanelResized = () => {
+    setMobileSidePanelExpanded(prev => !prev)
   }
 
   useLayoutEffect(() => {
@@ -82,8 +88,50 @@ const Navigator = () => {
     <Box width='50vw' height='100%' p='15px'>
       <Outlet />
     </Box>
-  </Flex> : <Flex>
-      sdsdsa
+  </Flex> : <Flex justify='flex-start'>
+    <Flex flexFlow='column' pos='sticky' top='0px' height='100vh' justify='center' align='center' gap='3vh' minWidth={mobileSidePanelExpanded ? '200px' : '100px'} bg='primary' padding='30px 30px 0 30px'>
+
+        <Avatar marginBottom='5vh' src='avatar.jpg' onClick={handleMobileSidePanelResized} _hover={{cursor: 'pointer'}}/>
+
+        <NavLink to='/introduction' className={({ isActive }) => (isActive ? 'path-active' : 'path')} onClick={() => handleRouteChanged('/introduction')}>
+          <Flex justifyContent='flex-start' align='center' gap='15px' padding='1vh' my='10px' rounded='12px' width={mobileSidePanelExpanded ? '180px' : 'max-content'}>
+            <Icon as={HiOutlinePresentationChartLine} boxSize='8' />
+            {mobileSidePanelExpanded && <Text>Introduction</Text>}
+          </Flex>
+        </NavLink>
+
+        <NavLink to='/expertise' className={({ isActive }) => (isActive ? 'path-active' : 'path')} onClick={() => handleRouteChanged('/expertise')}>
+          <Flex justifyContent='flex-start' align='center' gap='15px' padding='1vh' my='10px' rounded='12px'  width={mobileSidePanelExpanded ? '180px' : 'max-content'}>
+            <Icon as={GiAlliedStar} boxSize='8' />
+            {mobileSidePanelExpanded && <Text>Expertise</Text>}
+          </Flex>
+        </NavLink>
+
+        <NavLink to='/project' className={({ isActive }) => (isActive ? 'path-active' : 'path')} onClick={() => handleRouteChanged('/project')}>
+          <Flex justifyContent='flex-start' align='center' gap='15px' padding='1vh' my='10px' rounded='12px' width={mobileSidePanelExpanded ? '180px' : 'max-content'}>
+            <Icon as={AiOutlineProject} boxSize='8' />
+            {mobileSidePanelExpanded && <Text>Project</Text>}
+          </Flex>
+        </NavLink>
+
+        <NavLink to='/contact' className={({ isActive }) => (isActive ? 'path-active' : 'path')} onClick={() => handleRouteChanged('/contact')}>
+          <Flex justifyContent='flex-start' align='center' gap='15px' padding='1vh' my='10px' rounded='12px' width={mobileSidePanelExpanded ? '180px' : 'max-content'}>
+            <Icon as={AiOutlineContacts} boxSize='8' />
+            {mobileSidePanelExpanded && <Text>Contact</Text>}
+          </Flex>
+        </NavLink>
+
+        <NavLink to='/comment' className={({ isActive }) => (isActive ? 'path-active' : 'path')} onClick={() => handleRouteChanged('/comment')}>
+          <Flex justifyContent='flex-start' align='center' gap='15px' padding='1vh' my='10px' rounded='12px' width={mobileSidePanelExpanded ? '180px' : 'max-content'}>
+            <Icon as={BiCommentEdit} boxSize='8' />
+            {mobileSidePanelExpanded && <Text>Comment</Text>}
+          </Flex>
+        </NavLink>
+    </Flex>
+
+    <Box p='10px 30px' flexGrow={1} overflowX='auto'>
+      <Outlet />
+    </Box>
   </Flex>
 }
 

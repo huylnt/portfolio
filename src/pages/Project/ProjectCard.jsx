@@ -13,9 +13,9 @@ const ProjectCard = ({ name, description, techStack, isPersonal, githubLink, off
                     <Badge colorScheme={(isPersonal) ? 'green' : 'blue'}>{isPersonal ? 'Personal' : 'Team'}</Badge>
                </Flex>
 
-               <Text align='justify'>{description}</Text>
+               <Text align='justify' whiteSpace='normal'>{description}</Text>
 
-               <Flex zIndex='1' gap='30px' justify='space-between' align='center'>
+               <Flex zIndex='1' gap='20px' justify='space-between' align='center' flexWrap='wrap' marginTop='20px'>
                     <Flex flexGrow='8' maxWidth='80%' overflowX='auto' gap='30px'>
                          {techStack.map(e => <Text width='max-content' height='50px' padding='12px 20px' borderRadius='12px' bg='primary' whiteSpace='nowrap'>
                               {e}

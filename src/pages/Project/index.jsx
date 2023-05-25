@@ -3,8 +3,7 @@ import ProjectCard from "./ProjectCard"
 import profileLink from "profileLink"
 
 const Project = () => {
-   return <Center flexFlow='column' width='100%'>
-      <Tabs isFitted variant='soft-rounded' colorScheme='green' size='lg' defaultIndex={0} width='100%'>
+   return <Tabs isFitted variant='soft-rounded' colorScheme='green' size='lg' defaultIndex={0}>
 
          <TabList>
             <Tab>Web</Tab>
@@ -28,7 +27,6 @@ const Project = () => {
          </TabPanels>
 
       </Tabs>
-   </Center>
 }
 
 export default Project
