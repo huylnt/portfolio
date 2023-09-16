@@ -41,13 +41,18 @@ const Expertise = () => {
 
    const feMobileSkills = [
       {
+         skillName: 'Flutter',
+         completeness: '75%',
+      },
+      {
          skillName: 'Java for Android',
          completeness: '45%',
       },
       {
-         skillName: 'Flutter',
-         completeness: '30%',
+         skillName: 'Kotlin',
+         completeness: '25%',
       },
+
    ]
 
    const feDesktopSkills = [
@@ -98,7 +103,7 @@ const Expertise = () => {
    const otherSkills = [
       {
          skillName: 'Git Version Control',
-         completeness: '50%',
+         completeness: '80%',
       },
    ]
 

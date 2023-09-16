@@ -19,7 +19,8 @@ const ProjectCard = ({ name, description, techStack, isPersonal, githubLink, off
                     <Flex flexGrow='8' maxWidth='80%' overflowX='auto' gap='1vw' paddingY='1vh'>
                          {techStack.map(e => <Text width='max-content' height='50px' padding='12px 20px' borderRadius='12px' bg='primary' whiteSpace='nowrap'>
                               {e}
-                         </Text>)}
+                         </Text>)
+                         }
                     </Flex>
 
                     <OtherSite maxWidth='20%' flexGrow='2' href={githubLink} content='View source code' />
